@@ -20,13 +20,13 @@ router.use("/auth", AuthRouter);
  * @description Route for profile
  */
 
- router.use("/profile", ProfileRouter);
+ //router.use("/profile", ProfileRouter);
 
  /**
  * @route /api/book
  * @description Route for book
  */
 
- router.use("/book", BookRouter)
+ //router.use("/book", BookRouter)
 
 module.exports= router;

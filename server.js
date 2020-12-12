@@ -1,13 +1,17 @@
 const express = require("express");
 
 const app = express();
+require("dotenv").config();
+
+const connectDB = require("./models/connectDB");
 
 const router = require("./routes/router");
+
+connectDB();
 
 app.use("/api", router);
 
 
-
-app.listen(3000, ()=>{
-    console.log("i am listening on port 3000");
+app.listen(process.env.PORT, ()=>{
+    console.log(`I am listening on port ${process.env.PORT}`);
 });
