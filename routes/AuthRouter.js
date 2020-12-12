@@ -1,4 +1,5 @@
 const express = require("express");
+const {check, validationResult} = require("express-validator");
 
 const router = express.Router();
 
@@ -12,7 +13,15 @@ const AuthController = require("../controllers/AuthController")
  * @access      Public
  */
 
- router.post("/register", AuthController.authRegister);
+ router.post("/register", [check("password", "Please enter a password at least 6 characters")
+ .isLength({
+    min: 6,
+    },
+  ),
+  check("email", "please enter a valid email").isEmail(),
+], 
+    AuthController.authRegister
+);
 
  /**
   * @route       POST /api/auth/login

@@ -1,13 +1,25 @@
 const User = require("../models/UserModel");
 const bcrypt = require("bcryptjs");
+const {validationResult}=require("express-validator");
+//const {check, validationResult} = require("express-validator");
+
+const { response } = require("express");
 
 exports.authRegister = async (req, res)=>{
-    //TODO: Register function.
-
     const {firstName, lastName, email, password} = req.body;
 
-    //TODO1: validate the fields
-    //TODO2: check already registered
+    const validationErr = validationResult(req);
+    
+    if(validationErr?.errors?.length > 0){
+        return res.status(400).json({errors: validationErr.array()});
+    }
+
+    const userData = await User.findOne({email});
+    if(userData){
+       return res
+       .status(400)
+       .json({errors: [{massege: "User already exists!"}]})
+    }
 
     const salt = await bcrypt.genSalt(10);
     const newPassword = await bcrypt.hash(password, salt);
@@ -28,5 +40,5 @@ exports.authRegister = async (req, res)=>{
 exports.authLogin = (req, res) =>{
     //TODO: Auth
     //TODO: Login func
-    res.send("Login was successful");
+    res.send("Login is successful");
 }; 
