@@ -1,6 +1,9 @@
 const express = require("express");
+var jwt = require("jsonwebtoken");
 const router = express.Router();
+const authMiddleware = (req, res, next)=>{
 
+    const token = req.header("token");
 
 /**
  * @route POST /api/profile
@@ -8,8 +11,10 @@ const router = express.Router();
  * @access Private
  */
 
- router.get("/",  (req, res)=>{
-     res.send("private profile page")
+ router.get("/", auth, (req, res)=>{
+     res.send(req.decodedUser)
  });
+
+}; 
 
  module.exports = router;
