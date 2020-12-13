@@ -12,6 +12,8 @@ connectDB();
 app.use(express.json());
 app.use("/api", router);
 
+app.use(express.static("client/build"));
+
 //const port = process.env.PORT || 3000;
 
 app.listen(process.env.PORT, ()=>{
