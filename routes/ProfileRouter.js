@@ -1,20 +1,22 @@
 const express = require("express");
-var jwt = require("jsonwebtoken");
+const auth = require("../middleware/authMiddleware");
 const router = express.Router();
-const authMiddleware = (req, res, next)=>{
+const ProfileController = require("../controllers/ProfileController");
 
-    const token = req.header("token");
+// base url: /api/profile
 
 /**
- * @route POST /api/profile
- * @description profile endpoint
- * @access Private
+ * @route   GET /api/profile
+ * @desc    Profile endpoint
+ * @access  Private
  */
+router.get("/", auth, ProfileController.getProfileInfo);
 
- router.get("/", auth, (req, res)=>{
-     res.send(req.decodedUser)
- });
+/**
+ * @route   PUT /api/profile/update
+ * @desc    Update Profile endpoint
+ * @access  Private
+ */
+router.get("/update", auth, ProfileController.updateProfileInfo);
 
-}; 
-
- module.exports = router;
+module.exports = router;
